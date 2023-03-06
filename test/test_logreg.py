@@ -96,7 +96,7 @@ def test_loss_function():
 
     val_loss = log_model.loss_function(y_val, log_model.make_prediction(X_val))
 
-    assert val_loss == 0.003431961882810284
+    assert np.isclose(val_loss,0.003431961882810284)
 
 
 def test_gradient():
