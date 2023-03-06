@@ -117,6 +117,9 @@ class LogisticRegressor(BaseRegressor):
             batch_size=batch_size
         )
     
+    def sigmoid(self,z):
+        return (1.0/(1+np.exp(-z)))
+
     def make_prediction(self, X) -> np.array:
         """
         TODO: Implement logistic function to get estimates (y_pred) for input X values. The logistic
@@ -129,7 +132,15 @@ class LogisticRegressor(BaseRegressor):
         Returns: 
             The predicted labels (y_pred) for given X.
         """
-        pass
+        val = np.dot(X, self.W)
+        y_pred = self.sigmoid(val)
+
+        return y_pred
+
+
+
+
+
     
     def loss_function(self, y_true, y_pred) -> float:
         """
@@ -143,7 +154,9 @@ class LogisticRegressor(BaseRegressor):
         Returns: 
             The mean loss (a single number).
         """
-        pass
+        loss = -np.mean(y_true * (np.log(y_pred)) - (1 - y_true) * np.log(1 - y_pred))
+
+        return loss
         
     def calculate_gradient(self, y_true, X) -> np.ndarray:
         """
@@ -157,4 +170,8 @@ class LogisticRegressor(BaseRegressor):
         Returns: 
             Vector of gradients.
         """
-        pass
+        y_pred = self.make_prediction(X)
+        error = y_true - y_pred
+        grad = -X.T.dot(error) / len(y_true)
+
+        return grad

@@ -44,7 +44,7 @@ def loadDataset(
     """
 
     # Read dataset
-    full_df = pd.read_csv("./data/nsclc.csv", index_col="ID")
+    full_df = pd.read_csv("../data/nsclc.csv", index_col="ID")
     
     # Always include the class label
     if "NSCLC" not in features: 
